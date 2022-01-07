@@ -1,7 +1,7 @@
-# esp32-jmb-sensor
+# esp32-airsens
 Air sensor on ESP32 with Micropython BLE
 
-## description of esp32-jmb-sensor
+## description
 
 This project aims to produce wireless sensors for environmental data (temperature, humidity, atmospheric pressure and if possible air quality) with data transmission by bluetooth to an MQTT broker then in a database.
 
@@ -33,20 +33,20 @@ the RPI performs several functions:
 
 ## programs in ESP32
 
-#### sensors:
+#### ESP32 sensor:
 
-*  **jmb_ble_scan.py**: this program scans the bluetooth network to find all the *ble_central* whose name starts with *jmb_* and lets the user choose the server they want to work with.
-*  **jmb_ble_sensor.py**: this program controls the BME280 or BME689 environmental data sensors and transmits the measured data to the central unit whose address and name have been recorded in the *config.txt* file by the*jmb_ble_scan.py* program.
+*  **airsens_ble_scan.py**: this program scans the bluetooth network to find all the *ble_central* whose name starts with *jmb_* and lets the user choose the server they want to work with.
+*  **airsens_ble_sensor.py**: this program controls the BME280 or BME689 environmental data sensors and transmits the measured data to the central unit whose address and name have been recorded in the *config.txt* file by the*jmb_ble_scan.py* program.
 *  **config.txt**: this file contains the data necessary for connecting the sensor to the central unit. It is created or modified by the program *jmb_ble_scan.py*
 *  **index.txt**: this file is used to keep a functional pass counter even when the sensor ESP32 goes into *deepsleep* mode
-*  **main.py**: this file is used to keep a functional pass counter even when the sensor ESP32 goes into *deepsleep* mode useful during development and debugging phases.
-*  **directory*lib*** : contains the libraries useful for the operation of the programs
+*  **airsens_ble_main.py**: this file is used to keep a functional pass counter even when the sensor ESP32 goes into *deepsleep* mode useful during development and debugging phases.
+*  **directory <lib>** : contains the libraries useful for the operation of the programs
 
-#### central:
+#### ESP32 central:
 
-*  **jmb_ble_central.py**: this program functions as a central server for the sensors. It is still in *advertising* mode and waits for connections from the sensors, receives their data and transmits them to the server *mqt* by wifi.
+*  **airsens_ble_central.py**: this program functions as a central server for the sensors. It is still in *advertising* mode and waits for connections from the sensors, receives their data and transmits them to the server *mqt* by wifi.
 *  **MQTT publisher**:  
-*  **directory*lib*** : contains the libraries useful for the operation of the programs
+*  **directory <lib>** : contains the libraries useful for the operation of the programs
 
 #### RPI4
 
