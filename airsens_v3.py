@@ -12,6 +12,7 @@ data management for the project airsens esp32-mqtt-mysql
 v0.1.0 : 19.08.2022 --> first prototype based on airsens_mqtt.py
 v2.0.0 : 22.04.2023 --> adapté pour airsens_v2
 v3.0.0 : 22.11.2023 --> adapté pour airsens_v3
+vx.y.z : 07.06.2026 --> test github
 """
 VERSION = '3.0.0'
 APP = 'airsens_v3.py'
