@@ -36,7 +36,7 @@ class AirSensBatGraph:
         self.database_username = "pi"  # YOUR MYSQL USERNAME, USUALLY ROOT
         self.database_password = "mablonde"  # YOUR MYSQL PASSWORD
         self.host_name = "localhost"
-        self.server_ip = '192.168.1.107'
+        self.server_ip = '192.168.1.131'
         self.database_name = 'airsens'
         # graph
         self.filter = 12 # n measures to filter bat before making dbat/dt
