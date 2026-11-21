@@ -12,6 +12,7 @@ data management for the project airsens esp32-mqtt-mysql
 v0.1.0 : 19.08.2022 --> first prototype based on airsens_mqtt.py
 v2.0.0 : 22.04.2023 --> adapté pour airsens_v2
 v3.0.0 : 22.11.2023 --> adapté pour airsens_v3
+v3.1.0 : 20.11.2026 --> trappé erreur en cas d'arret
 vx.y.z : 07.06.2026 --> test github final
 """
 VERSION = '3.0.0'
@@ -35,7 +36,7 @@ class Mqtt:
         self.mariadb = MariaDb()
         # mqtt
         self.client = None
-        self.mqtt_ip = '192.168.1.106'
+        self.mqtt_ip = '192.168.1.165'
         self.mqtt_topic = "airsens_v3"
         self.data_list = ['temp', 'hum', 'pres', 'gas', 'alt']
         self.data_format = ['{:.2f}', '{:.0f}', '{:.0f}', '{:.0f}', '{:.0f}']
@@ -73,7 +74,7 @@ class MariaDb:
         self.database_username = "pi"  # YOUR MYSQL USERNAME, USUALLY ROOT
         self.database_password = "mablonde"  # YOUR MYSQL PASSWORD
         self.host_name = "localhost"
-        self.server_ip = '192.168.1.107'
+        self.server_ip = '192.168.1.165'
         self.database_name = 'airsens'
 
     def get_db_connection(self, db):
@@ -153,12 +154,17 @@ class AirSensNow:
         self.mqtt.client.on_connect = self.mqtt.on_connect(self.mqtt.mqtt_topic)
         self.mqtt.client.on_message = self.mqtt.on_message
         # loop for ever
-        self.mqtt.client.loop_forever()
-
+#         self.mqtt.client.loop_forever()
+        try:
+            self.mqtt.client.loop_forever()
+        except KeyboardInterrupt:
+            print("Arret demande par l'utilisateur")
+        finally:
+            self.mqtt.client.disconnect()
+            print("Deconnecte du broker")
 
 if __name__ == '__main__':
     # instatiate the class
     airsens = AirSensNow()
     # run main
     airsens.main()
-

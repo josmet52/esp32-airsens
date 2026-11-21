@@ -36,7 +36,7 @@ class AirSensBatGraph:
         self.database_username = "pi"  # YOUR MYSQL USERNAME, USUALLY ROOT
         self.database_password = "mablonde"  # YOUR MYSQL PASSWORD
         self.host_name = "localhost"
-        self.server_ip = '192.168.1.109'
+        self.server_ip = '192.168.1.165'
         self.database_name = 'airsens'
         # graph
         self.filter = 12 # n measures to filter bat before making dbat/dt
@@ -189,9 +189,12 @@ class AirSensBatGraph:
 
                 # adjust the size of the graph to the screen
                 screen_dpi = 90
-                width, height = screeninfo.get_monitors()[0].width, screeninfo.get_monitors()[0].height
-                fig.set_figheight(height / screen_dpi)
-                fig.set_figwidth(width / screen_dpi)
+                try:
+                    width, height = screeninfo.get_monitors()[0].width, screeninfo.get_monitors()[0].height
+                    fig.set_figheight(height / screen_dpi)
+                    fig.set_figwidth(width / screen_dpi)
+                except Exception:
+                    width, height = 1920, 1080  # fallback for headless environments
 
                 #elapsed time
                 elapsed, elaps_hm = self.get_elapsed_time(local)
